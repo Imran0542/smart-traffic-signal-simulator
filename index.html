@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Traffic Signal Simulator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="panel controls-panel">
+          <h2>Simulation Controls</h2>
+
+          <div class="button-row">
+            <button id="toggleRunBtn" class="primary">Pause</button>
+            <button id="spawnEmergencyBtn">Spawn Emergency</button>
+          </div>
+
+          <div class="field">
+            <label for="modeSelect">Signal Mode</label>
+            <select id="modeSelect">
+              <option value="fixed">Fixed-Time</option>
+              <option value="adaptive" selected>Adaptive</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="spawnRateSlider">Base Arrival Rate <span id="spawnRateValue">30</span> veh/min</label>
+            <input id="spawnRateSlider" type="range" min="5" max="90" value="30" />
+          </div>
+
+          <div class="field">
+            <label for="speedSlider">Simulation Speed <span id="speedValue">1.0x</span></label>
+            <input id="speedSlider" type="range" min="0.5" max="3" step="0.1" value="1" />
+          </div>
+
+          <div class="field">
+            <label for="maxWaitSlider">Max Wait Threshold <span id="maxWaitValue">60</span>s</label>
+            <input id="maxWaitSlider" type="range" min="20" max="120" value="60" />
+          </div>
+        </div>
+
+        <div class="panel metrics-panel">
+          <h2>Live Metrics</h2>
+          <div class="metric-grid">
+            <div class="metric-card">
+              <span class="metric-label">Avg Wait</span>
+              <strong id="avgWaitValue">0.0 s</strong>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Throughput</span>
+              <strong id="throughputValue">0 veh/min</strong>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Active Vehicles</span>
+              <strong id="activeVehicleValue">0</strong>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Mode</span>
+              <strong id="modeValue">Adaptive</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel queues-panel">
+          <h2>Queue Lengths</h2>
+          <div id="queuePanel" class="queue-list"></div>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <div class="canvas-header">
+          <div>
+            <h1>Smart Traffic Signal Simulator</h1>
+            <p>Adaptive optimization with emergency preemption</p>
+          </div>
+          <div class="badge-row">
+            <span id="signalPhaseBadge" class="badge">NS GREEN</span>
+          </div>
+        </div>
+
+        <canvas id="simCanvas" width="900" height="900"></canvas>
+
+        <div class="panel comparison-panel">
+          <h2>Adaptive vs Fixed Benchmark</h2>
+          <div class="chart-wrap">
+            <canvas id="comparisonChart" width="420" height="160"></canvas>
+          </div>
+          <div class="comparison-summary">
+            <div>
+              <span>Adaptive</span>
+              <strong id="adaptiveScoreValue">0</strong>
+            </div>
+            <div>
+              <span>Fixed</span>
+              <strong id="fixedScoreValue">0</strong>
+            </div>
+            <div>
+              <span>Delta</span>
+              <strong id="deltaScoreValue">0%</strong>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
